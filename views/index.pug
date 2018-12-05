@@ -55,7 +55,7 @@ script.
   //map.addLayer(pm);
   //adds geojson from local file to map
   var geoLayer = L.geoJson({features:[]}).addTo(map);
-    var base = "/public/uploads/lakewaconia/903337";
+    var base = "uploads/lakewaconia/903337";
       shp(base).then(function(data){
       geoLayer.addData(data);
       });
