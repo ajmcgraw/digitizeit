@@ -1,0 +1,85 @@
+//- extends layout.pug
+
+//- block content
+//-   //h1= title
+//-   //p Welcome to #{title}
+
+head
+  link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' crossorigin='anonymous')
+  nav.navbar.stick-top.navbar-dark.bg-success
+    a.navbar-brand.mb-0.h1(href='#') Digitize It
+    //- form(method='post', enctype='multipart/form-data')
+    //- input(type='file', name='imageupload')
+    //- input(type='submit', name='uploadimage', value='Upload Image')
+    block content
+  head
+    //style.
+    //title Digitize It
+    link(rel='stylesheet' href='https://unpkg.com/leaflet@1.3.4/dist/leaflet.css' integrity='sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==' crossorigin='')
+    link(rel='stylesheet' href='https://unpkg.com/leaflet.pm@latest/dist/leaflet.pm.css')
+    script(src='https://unpkg.com/leaflet@1.3.4/dist/leaflet.js' integrity='sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==' crossorigin='')
+    script(src='https://unpkg.com/shpjs@latest/dist/shp.js')
+    script(src='https://unpkg.com/leaflet.pm@latest/dist/leaflet.pm.min.js')
+    //stylesheet(L.Control.Shapefile.css)
+    //link(rel='stylesheet' href='L.Control.Shapefile.css')
+    //script(src = 'L.Control.Shapefile.js')
+#mapid(style='width: 100%; height: 85%;')
+script.
+  //creates a map
+  
+  var map = L.map('mapid').setView([44.934443, -93.588060], 10);
+  var id = 'https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v10/tiles/{z}/{x}/{y}.png?access_token=sk.eyJ1IjoiYWptY2dyYXciLCJhIjoiY2pwMGNpeDlyMDA3cjNxdGJzNXozMmJ2cCJ9.2Qk1aUqkY2zHfyF0voq0mQ'
+  //adds imagery to the map
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=sk.eyJ1IjoiYWptY2dyYXciLCJhIjoiY2pwMGNpeDlyMDA3cjNxdGJzNXozMmJ2cCJ9.2Qk1aUqkY2zHfyF0voq0mQ', {
+  maxZoom: 18,
+  id: 'mapbox.satellite',
+  //style: 'mapbox://styles/ajmcgraw/cjms227lg11r52rpfah1c1nei'
+  }).addTo(map);
+  // define toolbar options
+  //L.control.shapefile({ position: 'topleft' }).addTo(map);
+  var options = {
+  position: 'topright', // toolbar position, options are 'topleft', 'topright', 'bottomleft', 'bottomright'
+  drawMarker: true, // adds button to draw markers
+  drawPolyline: true, // adds button to draw a polyline
+  drawRectangle: true, // adds button to draw a rectangle
+  drawPolygon: true, // adds button to draw a polygon
+  drawCircle: true, // adds button to draw a cricle
+  cutPolygon: true, // adds button to cut a hole in a polygon
+  editMode: true, // adds button to toggle edit mode for all layers
+  removalMode: true, // adds a button to remove layers
+  };
+  // add leaflet.pm controls to the map
+  map.pm.addControls(options);
+  //map.pm.addControls(L.control.shapefile)
+  //L.control.shapefile({ position: 'topleft' }).addTo(map);
+  //map.addLayer(pm);
+  //adds geojson from local file to map
+  var geoLayer = L.geoJson({features:[]}).addTo(map);
+    var base = "/public/uploads/lakewaconia/903337";
+      shp(base).then(function(data){
+      geoLayer.addData(data);
+      });
+  var options = {
+  // makes the layer draggable
+  draggable: true,
+  // makes the vertices snappable to other layers
+  // temporarily disable snapping during drag by pressing ALT
+  snappable: false,
+  // distance in pixels that needs to be undercut to trigger snapping
+  // default: 30
+  snapDistance: 10,
+  // self intersection allowed?
+  allowSelfIntersection: false,
+  // disable the removal of markers/vertexes via right click
+  preventMarkerRemoval: false,
+  // disable the possibility to edit vertexes
+  preventVertexEdit: false,
+  };
+  // enable edit mode
+  geoLayer.pm.enable(options);
+  //marker.pm.enable(options);
+footer
+    form(action="/upload" method='post', enctype='multipart/form-data')
+      input(type='file', name='imageupload')
+      input(type='submit', name='uploadimage', value='Upload Image')
+    block content
