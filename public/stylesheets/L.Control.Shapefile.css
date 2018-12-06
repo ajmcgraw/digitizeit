@@ -1,14 +1,14 @@
 .leaflet-control-command-interior {
-    background-image: url(uploadshp.png);
+    background-image: url(uploadshp24.png);
     cursor: pointer;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     background-position: 50% 50%;
     background-repeat: no-repeat;
     display: block;
     padding: 3px;
     border-radius: 4px;
-    -webkit-border-radius: 4px;
+    -webkit-border-radius: 2px;
     -moz-border-radius: 4px;
     box-shadow: 0 1px 7px rgba(0, 0, 0, 0.65);
     text-align: center;

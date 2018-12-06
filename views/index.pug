@@ -38,8 +38,8 @@ script.
   // define toolbar options
   //L.control.shapefile({ position: 'topleft' }).addTo(map);
   var options = {
-  position: 'topright', // toolbar position, options are 'topleft', 'topright', 'bottomleft', 'bottomright'
-  drawMarker: true, // adds button to draw markers
+  position: 'topleft', // toolbar position, options are 'topleft', 'topright', 'bottomleft', 'bottomright'
+  drawMarker: false, // adds button to draw markers
   drawPolyline: true, // adds button to draw a polyline
   drawRectangle: true, // adds button to draw a rectangle
   drawPolygon: true, // adds button to draw a polygon
@@ -59,9 +59,9 @@ script.
       shp(base).then(function(data){
       geoLayer.addData(data);
       });
-  var options = {
+  var editOptions = {
   // makes the layer draggable
-  draggable: true,
+  draggable: false,
   // makes the vertices snappable to other layers
   // temporarily disable snapping during drag by pressing ALT
   snappable: false,
@@ -76,8 +76,8 @@ script.
   preventVertexEdit: false,
   };
   // enable edit mode
-  geoLayer.pm.enable(options);
-  //marker.pm.enable(options);
+  geoLayer.pm.enable(editOptions);
+  //marker.pm.enable(editOptions);
 footer
     //- form(action="/upload" method='post', enctype='multipart/form-data')
     //-   input(type='file', name='imageupload')
