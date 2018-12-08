@@ -29,7 +29,7 @@ L.Control.Shapefile = L.Control.extend({
                 thisControl.fileToMap(this.files[0])
             });
 
-        controlUI.title = 'Upload a Zipped file with a .dbf, .shx, .shp and .cpg';
+        controlUI.title = 'Upload a zipped file with a .dbf, .shx, .shp and .cpg';
 
         return controlDiv;
     },
