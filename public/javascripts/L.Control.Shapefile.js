@@ -26,7 +26,7 @@ L.Control.Shapefile = L.Control.extend({
                 document.getElementById("file").click();
             })
             .addListener(input, 'change', function(){
-                thisControl.fileToArrayBuffer(this.files[0])
+                thisControl.fileToMap(this.files[0])
             });
 
         controlUI.title = 'Upload a Shapefile';
@@ -34,36 +34,49 @@ L.Control.Shapefile = L.Control.extend({
         return controlDiv;
     },
 
+    // var geoLayer = L.geoJson({features:[]}).addTo(map);
+    // var base = "uploads/lakewaconia/903337";
+    //   shp(base).then(function(data){
+    //   geoLayer.addData(data);
+    //   });
+    fileToShape: function(file) {
+        var geoLayer = L.geoJson({features:[]}).addTo(map);
+        var theShp = file;
+        shp(theShp).then(function(data){
+            geoLayer.addData(data);
+        })
+    },
     // When the user uploads a file, convert the file to an array buffer.
-    fileToArrayBuffer: function(file) {
+    fileToMap: function(file) {
         var thisControl = this;
 
         var reader = new FileReader();
 
         reader.onloadend = function (e) {
-            console.log(e.target.result);
-            console.log(e.target.result.byteLength);
+            //console.log(e.target.result);
+            //console.log(e.target.result.byteLength);
+            fileToShape(e.result)
 
             // Pass the array buffer to the shapfile-js function
-            thisControl.loadArrayBuffer(e.target.result);
+            //thisControl.loadArrayBuffer(e.target.result);
         };
 
-        reader.readAsArrayBuffer(file);
+        //reader.readAsArrayBuffer(file);
 
     },
 
     // Convert the array buffer to geojson and add it to the map as a layer
-    loadArrayBuffer: function(buffer) {
+    // loadArrayBuffer: function(buffer) {
 
-        shp(buffer).then(function (geojson) {
-            var layer = L.geoJSON(geojson);
-            var layers = layer._layers;
-            Object.keys(layers).forEach(function(key) {
-                var layer = (layers[key]);
-                layer.addTo(map);
-            });
-        });
-    }
+    //     shp(buffer).then(function (geojson) {
+    //         var layer = L.geoJSON(geojson);
+    //         var layers = layer._layers;
+    //         Object.keys(layers).forEach(function(key) {
+    //             var layer = (layers[key]);
+    //             layer.addTo(map);
+    //         });
+    //     });
+    // }
 });
 
 L.control.shapefile = function(opts) {
