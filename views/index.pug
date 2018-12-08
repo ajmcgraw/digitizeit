@@ -55,10 +55,10 @@ script.
   //map.addLayer(pm);
   //adds geojson from local file to map
   var geoLayer = L.geoJson({features:[]}).addTo(map);
-    var base = "uploads/lakewaconia/903337";
-      shp(base).then(function(data){
-      geoLayer.addData(data);
-      });
+  //-   var base = "uploads/lakewaconia/903337";
+  //-     shp(base).then(function(data){
+  //-     geoLayer.addData(data);
+  //-     });
   var editOptions = {
   // makes the layer draggable
   draggable: false,

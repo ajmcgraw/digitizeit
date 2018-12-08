@@ -29,7 +29,7 @@ L.Control.Shapefile = L.Control.extend({
                 thisControl.fileToMap(this.files[0])
             });
 
-        controlUI.title = 'Upload a zipped file with a .dbf, .shx, .shp and .cpg';
+        controlUI.title = 'Upload a zipped file with a .dbf, .shx and .shp';
 
         return controlDiv;
     },
@@ -41,7 +41,7 @@ L.Control.Shapefile = L.Control.extend({
 
         reader.onload = function (e) {
 
-            console.log(e.target.result)
+            //console.log(e.target.result)
             thisControl.fileToShape(e.target.result)
 
 
@@ -55,9 +55,14 @@ L.Control.Shapefile = L.Control.extend({
         var geoLayer = L.geoJson({features:[]}).addTo(map);
         var theShp = file;
         shp(theShp).then(function(data){
+
+            //adding the layer to the map
             geoLayer.addData(data);
+
+            //this zooms to the layer
+            map.fitBounds(geoLayer.getBounds());
         })
-        map.fitBounds(data.getBounds())
+
     },
 
 });
