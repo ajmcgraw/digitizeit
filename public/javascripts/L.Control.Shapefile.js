@@ -57,6 +57,7 @@ L.Control.Shapefile = L.Control.extend({
         shp(theShp).then(function(data){
             geoLayer.addData(data);
         })
+        map.fitBounds(data.getBounds())
     },
 
 });
