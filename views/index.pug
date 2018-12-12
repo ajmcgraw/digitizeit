@@ -36,7 +36,6 @@ script.
   //style: 'mapbox://styles/ajmcgraw/cjms227lg11r52rpfah1c1nei'
   }).addTo(map);
   // define toolbar options
-  //L.control.shapefile({ position: 'topleft' }).addTo(map);
   var options = {
   position: 'topleft', // toolbar position, options are 'topleft', 'topright', 'bottomleft', 'bottomright'
   drawMarker: false, // adds button to draw markers
@@ -52,6 +51,7 @@ script.
   map.pm.addControls(options);
   //map.pm.addControls(L.control.shapefile)
   L.control.shapefile({ position: 'topleft' }).addTo(map);
+  //L.control.shapefile({ position: 'topleft' }).addTo(map);
   //map.addLayer(pm);
   //adds geojson from local file to map
   var geoLayer = L.geoJson({features:[]}).addTo(map);
@@ -77,7 +77,7 @@ script.
   };
   // enable edit mode
   geoLayer.pm.enable(editOptions);
-  //marker.pm.enable(editOptions);
+  marker.pm.enable(editOptions);
 footer
     //- form(action="/upload" method='post', enctype='multipart/form-data')
     //-   input(type='file', name='imageupload')
